@@ -3,7 +3,7 @@ using namespace std;
 
 int BlasedRandom(double p)
 {
-	double rp = double(int(rand() % 100))/100 ;
+	double rp = double(rand() % 100)/100 ;
 	if (rp < p)
 		return 1;
 	else
