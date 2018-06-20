@@ -5,7 +5,11 @@ void RandomizeInPlace(vector<int> &A)
 {
 	int n = A.size();
 	int ri, tmp;
-	for (int i = 0; i < n; i++)
+	ri = rand() % n;
+	tmp = A[ri];
+	A[ri] = A[0];
+	A[0] = tmp;
+	for (int i = 1; i < n; i++)
 	{
 		ri = i+rand() % (n - i);
 		tmp = A[ri];
