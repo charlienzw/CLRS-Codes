@@ -229,36 +229,51 @@ void SquareMatrixMultiplyStrassen(vector<vector<int>> A, vector<int> field_A, ve
 	}
 }
 
+double log2(double n)
+{
+	return log(n) / log(2);
+}
+
 int main()
 {
-	int n;
+	int n,N;
 	while (scanf("%d", &n) != EOF)
 	{
+		if (n | 0 != n)
+		{
+			N = pow(2, int(log2(n)) + 1);
+		}
+		else
+		{
+			N = n;
+		}
 		vector<vector<int>> A;
-		A.resize(n);
+		A.resize(N);
+		for (int i = 0; i < N; i++)
+			A[i].resize(N, 0);
 		for (int i = 0; i < n; i++)
 		{
-			A[i].resize(n);
 			for (int j = 0; j < n; j++)
 			{
 				scanf("%d", &A[i][j]);
 			}
 		}
 		vector<vector<int>> B;
-		B.resize(n);
+		B.resize(N);
+		for (int i = 0; i < N; i++)
+			B[i].resize(N, 0);
 		for (int i = 0; i < n; i++)
 		{
-			B[i].resize(n);
 			for (int j = 0; j < n; j++)
 			{
 				scanf("%d", &B[i][j]);
 			}
 		}
 		vector<vector<int>> C;
-		C.resize(n);
-		for (int i = 0; i < n; i++)
+		C.resize(N);
+		for (int i = 0; i < N; i++)
 		{
-			C[i].resize(n);
+			C[i].resize(N);
 		}
 		SquareMatrixMultiply(A, B, C);
 		for (int i = 0; i < n; i++)
@@ -269,7 +284,7 @@ int main()
 			}
 			printf("\n");
 		}
-		SquareMatrixMultiplyRecursive(A, { 0,n - 1,0,n - 1 }, B, { 0,n - 1,0,n - 1 }, C);
+		SquareMatrixMultiplyRecursive(A, { 0,N - 1,0,N - 1 }, B, { 0,N - 1,0,N - 1 }, C);
 		for (int i = 0; i < n; i++)
 		{
 			for (int j = 0; j < n; j++)
@@ -278,7 +293,7 @@ int main()
 			}
 			printf("\n");
 		}
-		SquareMatrixMultiplyStrassen(A, { 0,n - 1,0,n - 1 }, B, { 0,n - 1,0,n - 1 }, C);
+		SquareMatrixMultiplyStrassen(A, { 0,N - 1,0,N - 1 }, B, { 0,N - 1,0,N - 1 }, C);
 		for (int i = 0; i < n; i++)
 		{
 			for (int j = 0; j < n; j++)
