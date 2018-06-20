@@ -17,4 +17,5 @@ int main()
 		printf("%d+%di\n", a*c-b*d, a*d+b*c);
 		printf("%d+%di\n", result[0], result[1]);
 	}
+	return 0;
 }

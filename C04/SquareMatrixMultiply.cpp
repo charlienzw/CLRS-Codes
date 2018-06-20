@@ -239,7 +239,7 @@ int main()
 	int n,N;
 	while (scanf("%d", &n) != EOF)
 	{
-		if (n | 0 != n)
+		if (double(int(log2(n)))!=log2(n))
 		{
 			N = pow(2, int(log2(n)) + 1);
 		}
