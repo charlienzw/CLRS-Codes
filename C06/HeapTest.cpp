@@ -9,7 +9,7 @@ int main()
 	int heap_size, index,instruction,key;
 	printf("Please input the size of array(<=1000):\n");
 	scanf("%d", &heap_size);
-	printf("Please input the elements of the array:\n");
+	printf("Please input the BuildNewMaxHeap of the array:\n");
 	A.HeapInit(heap_size);
 	printf("Functions:\n");
 	printf("1. Print this heap.\n");

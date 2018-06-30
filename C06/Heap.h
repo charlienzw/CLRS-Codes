@@ -4,6 +4,7 @@ class Heap
 {
 	public:
 		void HeapInit(int N);
+		void HeapFromVector(vector<int> V);
 		void PrintHeap();
 		int Parent(int i);
 		int Left(int i);
@@ -14,7 +15,8 @@ class Heap
 		void MaxHeapify(int i);
 		void MaxHeapify_iter(int i);
 		void MinHeapify(int i);
-		void BuildNewHeap();
+		void BuildNewMaxHeap();
+		void BuildNewMinHeap();
 		void HeapSort();
 		int heap_size;
 		bool ifmaxheap();

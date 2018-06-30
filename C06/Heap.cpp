@@ -21,6 +21,13 @@ void Heap::HeapInit(int N)
 		scanf("%d", &arr[i]);
 }
 
+void Heap::HeapFromVector(vector<int> V)
+{
+	heap_size = V.size();
+	for (int i = 0; i < heap_size; i++)
+		arr[i] = V[i];
+}
+
 void Heap::PrintHeap()
 {
 	for (int i = 0; i < heap_size; i++)
@@ -134,7 +141,7 @@ void Heap::MinHeapify(int i)
 	}
 }
 
-void Heap::BuildNewHeap()
+void Heap::BuildNewMaxHeap()
 {
 	for (int i = heap_size / 2 - 1; i >= 0; i--)
 	{
@@ -142,9 +149,17 @@ void Heap::BuildNewHeap()
 	}
 }
 
+void Heap::BuildNewMinHeap()
+{
+	for (int i = heap_size / 2 - 1; i >= 0; i--)
+	{
+		MinHeapify(i);
+	}
+}
+
 void Heap::HeapSort()
 {
-	BuildNewHeap();
+	BuildNewMaxHeap();
 	int tmp;
 	int heap_size_tmp = heap_size;
 	for (int i = heap_size - 1; i >= 1; i--)
