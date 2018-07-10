@@ -1,0 +1,135 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int Partition(vector<int> &A, int p, int r)
+{
+	int tmp;
+	int x = A[r];
+	int i = p - 1;
+	for (int j = p; j <= r - 1; j++)
+	{
+		if (A[j] <= x)
+		{
+			i = i + 1;;
+			tmp = A[j];
+			A[j] = A[i];
+			A[i] = tmp;
+		}
+	}
+	tmp = A[i + 1];
+	A[i + 1] = A[r];
+	A[r] = tmp;
+	return i + 1;
+}
+
+void QuickSort(vector<int> &A, int p, int r)
+{
+	if (p < r)
+	{
+		int q = Partition(A, p, r);
+		QuickSort(A, p, q - 1);
+		QuickSort(A, q + 1, r);
+	}
+}
+
+int RandomizedPartition(vector<int>&A, int p, int r)
+{
+	int i = p + rand() % (r - p + 1);
+	int tmp;
+	tmp = A[r];
+	A[r] = A[i];
+	A[i] = tmp;
+	return Partition(A, p, r);
+}
+
+void RandomizedQuickSort(vector<int> &A,int p,int r)
+{
+	if (p < r)
+	{
+		int q = RandomizedPartition(A, p, r);
+		RandomizedQuickSort(A, p, q - 1);
+		RandomizedQuickSort(A, q + 1, r);
+	}
+}
+
+int HoarePartition(vector<int> &A, int p, int r)
+{
+	int x = A[p];
+	int i = p - 1;
+	int j = r + 1;
+	int tmp;
+	while (true)
+	{
+		while (1)
+		{
+			j = j - 1;
+			if (A[j] <= x)
+				break;
+		}
+		while (1)
+		{
+			i = i + 1;
+			if (A[i] >= x)
+				break;
+		}
+		if (i < j)
+		{
+			tmp = A[i];
+			A[i] = A[j];
+			A[j] = tmp;
+		}
+		else
+		{
+			return j;
+		}
+	}
+}
+
+void HoareQuickSort(vector<int> &A, int p, int r)
+{
+	if (p < r)
+	{
+		int q = HoarePartition(A, p, r);
+		HoareQuickSort(A, p, q);
+		HoareQuickSort(A, q + 1, r);
+	}
+}
+
+int main()
+{
+	int N,instruction;
+	while (scanf("%d", &N) != EOF)
+	{
+		vector<int> A(N);
+		for (int i = 0; i<A.size(); i++)
+			scanf("%d", &A[i]);
+		printf("1. QuickSort.\n");
+		printf("2. RandomizedQuickSort.\n");
+		printf("3. HoareQuickSort.\n");
+		scanf("%d", &instruction);
+		switch (instruction)
+		{
+		case 1:
+			QuickSort(A, 0, N - 1);
+			for (int i = 0; i<A.size(); i++)
+				printf("%d ", A[i]);
+			printf("\n");
+			break;
+		case 2:
+			RandomizedQuickSort(A, 0, N - 1);
+			for (int i = 0; i<A.size(); i++)
+				printf("%d ", A[i]);
+			printf("\n");
+			break;
+		case 3:
+			HoareQuickSort(A, 0, N - 1);
+			for (int i = 0; i<A.size(); i++)
+				printf("%d ", A[i]);
+			printf("\n");
+			break;
+		default:
+			printf("Invalid instruction.\n");
+		}
+	}
+	return 0;
+}
