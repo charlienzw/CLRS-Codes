@@ -95,6 +95,89 @@ void HoareQuickSort(vector<int> &A, int p, int r)
 	}
 }
 
+void Partition3(vector<int> &A, int p, int r, int &q, int &t)
+{
+	int tmp;
+	int x = A[r];
+	int i = p - 1, j = p - 1;
+	for (int k = p; k <= r - 1; k++)
+	{
+		if (A[k] < x)
+		{     
+			i = i + 1;
+			j = j + 1;
+			tmp = A[k];
+			A[k] = A[i];
+			A[i] = tmp;
+			tmp = A[i];
+			A[i] = A[j];
+			A[j ] = tmp;
+		}
+		if (A[k] == x)
+		{
+			i = i + 1;
+			tmp = A[k];
+			A[k] = A[i];
+			A[i] = tmp;
+		}
+	}
+	tmp = A[i + 1];
+	A[i + 1] = A[r];
+	A[r] = tmp;
+	q = j + 1;
+	t = i;
+}
+
+void RandomizedPartition3(vector<int> &A, int p, int r,int &q,int &t)
+{
+	int i = p + rand() % (r - p + 1);
+	int tmp;
+	tmp = A[r];
+	A[r] = A[i];
+	A[i] = tmp;
+	return Partition3(A, p, r, q, t);
+}
+
+void QuickSort3(vector<int> &A, int p, int r)
+{
+	if (p < r)
+	{
+		int q, t;
+		RandomizedPartition3(A, p, r, q, t);
+		QuickSort3(A, p, q - 1);
+		QuickSort3(A, t + 1, r);
+	}
+}
+
+void TailRecursionQuickSort(vector<int> &A, int p, int r)
+{
+	while (p < r)
+	{
+		int q = RandomizedPartition(A, p, r);
+		TailRecursionQuickSort(A, p, q - 1);
+		p = q + 1;
+	}
+}
+
+void TailRecursionQuickSort3(vector<int> &A, int p, int r)
+{
+	int q, t;
+	while (p < r)
+	{
+		RandomizedPartition3(A, p, r, q, t);
+		if (q - p < r - t)
+		{
+			TailRecursionQuickSort3(A, p, q-1);
+			p = t + 1;
+		}
+		else
+		{
+			TailRecursionQuickSort3(A, t + 1, r);
+			r = q - 1;
+		}
+	}
+}
+
 int main()
 {
 	int N,instruction;
@@ -106,6 +189,9 @@ int main()
 		printf("1. QuickSort.\n");
 		printf("2. RandomizedQuickSort.\n");
 		printf("3. HoareQuickSort.\n");
+		printf("4. QuickSort3.\n");
+		printf("5. TailRecursionQuickSort.\n");
+		printf("6. TailRecursionQuickSort3.\n");
 		scanf("%d", &instruction);
 		switch (instruction)
 		{
@@ -123,6 +209,24 @@ int main()
 			break;
 		case 3:
 			HoareQuickSort(A, 0, N - 1);
+			for (int i = 0; i<A.size(); i++)
+				printf("%d ", A[i]);
+			printf("\n");
+			break;
+		case 4:
+			QuickSort3(A, 0, N - 1);
+			for (int i = 0; i<A.size(); i++)
+				printf("%d ", A[i]);
+			printf("\n");
+			break;
+		case 5:
+			TailRecursionQuickSort(A, 0, N - 1);
+			for (int i = 0; i<A.size(); i++)
+				printf("%d ", A[i]);
+			printf("\n");
+			break;
+		case 6:
+			TailRecursionQuickSort3(A, 0, N - 1);
 			for (int i = 0; i<A.size(); i++)
 				printf("%d ", A[i]);
 			printf("\n");
