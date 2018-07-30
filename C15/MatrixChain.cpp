@@ -21,7 +21,6 @@ void MatrixChainOrder(vector<int> p,vector<vector<int>> &m,vector<vector<int>> &
 		{
 			int j = i + l-1;
 			m[i][j] = INT_MAX;
-			printf("%d-%d-%d\n", i, j, l);
 			for (int k = i; k <= j-1; k++)
 			{
 				int q = m[i][k] + m[k + 1][j] + p[i] * p[k+1] * p[j+1];
@@ -31,7 +30,6 @@ void MatrixChainOrder(vector<int> p,vector<vector<int>> &m,vector<vector<int>> &
 					s[i][j] = k;
 				}
 			}
-			printf("%d-%d-%d\n", i, j, l);
 		}
 	}
 }
